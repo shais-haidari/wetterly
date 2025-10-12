@@ -88,18 +88,35 @@ function App() {
       <AnimatePresence>
   {transitioning && (
     <motion.div
-      key="transition-overlay"
-      className="absolute top-0 left-0 w-full h-full z-[5] bg-gradient-to-tr from-white/40 via-white/10 to-transparent backdrop-blur-md"
-      initial={{ opacity: 0, x: '-100%' }}
-      animate={{ opacity: 1, x: '0%' }}
-      exit={{ opacity: 0, x: '100%' }}
+      key="minimal-transition"
+      className="absolute top-0 left-0 w-full h-full z-[5] backdrop-blur-md bg-white/5"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{
-        duration: 1.2,
+        duration: 1,
         ease: 'easeInOut'
       }}
     />
   )}
 </AnimatePresence>
+
+
+<motion.video
+  key={videoSrc}
+  autoPlay loop muted playsInline
+  className="absolute top-0 left-0 w-full h-full object-cover z-0"
+  animate={{ scale: transitioning ? 1.1 : 1 }}
+  transition={{ duration: 2, ease: 'easeInOut' }}
+>
+  <source src={videoSrc} type="video/mp4" />
+</motion.video>
+
+
+
+
+
+
 
 
 
