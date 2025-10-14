@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/searchBar";
 import WeatherCard from "./components/WeatherCard";
 
 // 🎬 Video backgrounds
