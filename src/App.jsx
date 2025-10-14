@@ -4,6 +4,7 @@ import axios from "axios";
 import SearchBar from "./components/searchBar";
 import WeatherCard from "./components/WeatherCard";
 import LikeButton from "./components/LikeButton";
+import logo from "./assets/logo/logo_white.png";
 
 // 🎬 Video backgrounds
 import defaultVideo from "./video.mp4";
@@ -111,9 +112,9 @@ function App() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h1 className="text-4xl font-extrabold mb-6 text-blue-100 tracking-wide drop-shadow-lg">
-          Weather Forecast
-        </h1>
+        <div className="p-6 justify-items-center">
+              <img src={logo} alt="logo" className="w-50"/> 
+        </div>
 
         {/* 🔍 Search Bar */}
         <SearchBar fetchWeather={fetchWeather} />
@@ -129,7 +130,7 @@ function App() {
 
       {/* ⚡ Footer */}
       <footer className="absolute bottom-3 text-xs text-gray-300 z-10">
-        © {new Date().getFullYear()} Weather App | Powered by OpenWeather API
+        © {new Date().getFullYear()} Wetterly | Developed By Shais <br></br> <div className="text-center justify-center"> Powered by OpenWeather API </div>
       </footer>
     </div>
   );
