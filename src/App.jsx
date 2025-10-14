@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import SearchBar from "./components/searchBar";
 import WeatherCard from "./components/WeatherCard";
+import LikeButton from "./components/LikeButton";
 
 // 🎬 Video backgrounds
 import defaultVideo from "./video.mp4";
@@ -11,7 +12,6 @@ import clouds from "./assets/videos/clouds.mp4";
 import shower from "./assets/videos/shower.mp4";
 import thunderstorm from "./assets/videos/thunderstorm.mp4";
 import snow from "./assets/videos/snow.mp4";
-import LikeButton from "./components/LikeButton";
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -44,7 +44,7 @@ function App() {
       else if (desc.includes("thunder")) newSrc = thunderstorm;
       else if (desc.includes("snow")) newSrc = snow;
 
-      // Smooth transition effect between videos
+      // Smooth transition effect
       if (newSrc !== videoSrc) {
         setTransitioning(true);
         setTimeout(() => {
@@ -72,7 +72,7 @@ function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 to-indigo-950 text-white">
-      {/* 🎬 Animated background video */}
+      {/* 🎬 Background video */}
       <motion.video
         key={videoSrc}
         ref={videoRef}
@@ -118,17 +118,18 @@ function App() {
         {/* 🔍 Search Bar */}
         <SearchBar fetchWeather={fetchWeather} />
 
-        {/* ⏳ Status and weather info */}
+        {/* ⏳ Status & weather info */}
         {loading && <p className="text-blue-200 mt-4">Loading...</p>}
         {error && <p className="text-red-400 mt-4">{error}</p>}
         {weather && <WeatherCard weather={weather} />}
       </motion.div>
 
-      {/* ⚡ Footer */}
+      {/* ❤️ Like Button (Bottom-right corner) */}
       <LikeButton />
+
+      {/* ⚡ Footer */}
       <footer className="absolute bottom-3 text-xs text-gray-300 z-10">
         © {new Date().getFullYear()} Weather App | Powered by OpenWeather API
-        
       </footer>
     </div>
   );
