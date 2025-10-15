@@ -25,7 +25,6 @@ function App() {
   const API_KEY = import.meta.env.VITE_API_KEY;
   const API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
-  // 🌤️ Fetch weather data
   const fetchWeather = async (city) => {
     setLoading(true);
     setError("");
@@ -35,17 +34,16 @@ function App() {
       const response = await axios.get(url);
       setWeather(response.data);
 
-      // Choose video based on weather
+      // Choose background video
       const desc = response.data.weather[0].description.toLowerCase();
       let newSrc = defaultVideo;
-
       if (desc.includes("clear")) newSrc = clearSky;
       else if (desc.includes("cloud")) newSrc = clouds;
       else if (desc.includes("rain") || desc.includes("drizzle")) newSrc = shower;
       else if (desc.includes("thunder")) newSrc = thunderstorm;
       else if (desc.includes("snow")) newSrc = snow;
 
-      // Smooth transition effect
+      // Smooth video transition
       if (newSrc !== videoSrc) {
         setTransitioning(true);
         setTimeout(() => {
@@ -66,7 +64,6 @@ function App() {
     }
   };
 
-  // 🔁 Reload video on source change
   useEffect(() => {
     if (videoRef.current) videoRef.current.load();
   }, [videoSrc]);
@@ -91,7 +88,7 @@ function App() {
       {/* 🌫️ Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-[1]" />
 
-      {/* ✨ Transition blur overlay */}
+      {/* ✨ Transition blur */}
       <AnimatePresence>
         {transitioning && (
           <motion.div
@@ -105,32 +102,34 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* 🌤️ Main content */}
+      {/* 🌤️ Main card */}
       <motion.div
-        className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8 max-w-md w-full text-center"
+        className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl p-10 w-full max-w-3xl text-center"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="p-6 justify-items-center">
-              <img src={logo} alt="logo" className="w-50"/> 
+        <div className="p-4 flex justify-center">
+          <img src={logo} alt="logo" className="w-48" />
         </div>
 
         {/* 🔍 Search Bar */}
         <SearchBar fetchWeather={fetchWeather} />
 
-        {/* ⏳ Status & weather info */}
+        {/* 🌀 Weather Info */}
         {loading && <p className="text-blue-200 mt-4">Loading...</p>}
         {error && <p className="text-red-400 mt-4">{error}</p>}
         {weather && <WeatherCard weather={weather} />}
       </motion.div>
 
-      {/* ❤️ Like Button (Bottom-right corner) */}
+      {/* ❤️ Like Button */}
       <LikeButton />
 
       {/* ⚡ Footer */}
-      <footer className="absolute bottom-3 text-xs text-gray-300 z-10">
-        © {new Date().getFullYear()} Wetterly | Developed By Shais <br></br> <div className="text-center justify-center"> Powered by OpenWeather API </div>
+      <footer className="absolute bottom-4 text-xs text-gray-300 z-10 text-center">
+        © {new Date().getFullYear()} Wetterly | Developed by Shais
+        <br />
+        <div>Powered by OpenWeather API</div>
       </footer>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Search, Clock, XCircle } from "lucide-react"; // optional icons — ensure lucide-react is installed
 
 const SearchBar = ({ fetchWeather }) => {
   const [city, setCity] = useState("");
@@ -25,8 +26,8 @@ const SearchBar = ({ fetchWeather }) => {
 
     // Update history
     const newHistory = [trimmedCity, ...history.filter((h) => h !== trimmedCity)];
-    setHistory(newHistory);
-    saveHistory(newHistory);
+    setHistory(newHistory.slice(0, 8)); // limit to last 8
+    saveHistory(newHistory.slice(0, 8));
 
     setCity("");
   };
@@ -44,39 +45,40 @@ const SearchBar = ({ fetchWeather }) => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full space-y-4">
-      {/* Search Input */}
+    <div className="flex flex-col items-center w-full space-y-6">
+      {/* 🔍 Search Input */}
       <form
-        className="flex w-full max-w-md bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl shadow-md overflow-hidden"
+        className="flex w-full max-w-2xl bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl shadow-lg overflow-hidden"
         onSubmit={handleSubmit}
       >
         <input
           type="text"
-          placeholder="Enter city name..."
+          placeholder="Search for a city..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="flex-1 p-3 bg-transparent text-white placeholder-gray-300 outline-none"
+          className="flex-1 p-5 bg-transparent text-white placeholder-gray-300 text-lg outline-none"
         />
         <button
           type="submit"
-          className="flex items-center gap-2 bg-blue-600 px-4 text-white font-semibold hover:bg-blue-700 transition"
+          className="flex items-center justify-center gap-2 bg-blue-600 px-6 text-lg font-semibold hover:bg-blue-700 transition-all duration-200"
         >
-           Search
+          <Search size={22} />
+          Search
         </button>
       </form>
 
-      {/* Search History */}
+      {/* 🕓 Search History */}
       {history.length > 0 && (
-        <div className="w-full max-w-md bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl shadow-md p-4 text-white">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="flex items-center gap-2 text-lg font-semibold">
-               Recent Searches
+        <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg p-5 text-white">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="flex items-center gap-2 text-xl font-semibold">
+              <Clock size={20} /> Recent Searches
             </h3>
             <button
               onClick={clearHistory}
               className="flex items-center gap-1 text-sm text-red-400 hover:text-red-500 transition"
             >
-               Clear
+              <XCircle size={16} /> Clear
             </button>
           </div>
 
@@ -85,7 +87,7 @@ const SearchBar = ({ fetchWeather }) => {
               <button
                 key={index}
                 onClick={() => handleHistoryClick(item)}
-                className="px-3 py-1.5 bg-white/20 rounded-full border border-white/20 hover:bg-blue-600 hover:border-blue-400 transition text-sm"
+                className="px-4 py-2 bg-white/20 rounded-full border border-white/20 hover:bg-blue-600 hover:border-blue-400 transition text-sm sm:text-base"
               >
                 {item}
               </button>
