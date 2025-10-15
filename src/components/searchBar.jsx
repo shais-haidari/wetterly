@@ -25,7 +25,7 @@ const SearchBar = ({ fetchWeather }) => {
     fetchWeather(trimmedCity);
 
     // Update history
-    const newHistory = [trimmedCity, ...history.filter((h) => h !== trimmedCity)];
+    const newHistory = [trimmedCity.toLowerCase(), ...history.filter((h) => h !== trimmedCity.toLowerCase())];
     setHistory(newHistory.slice(0, 8)); // limit to last 8
     saveHistory(newHistory.slice(0, 8));
 
@@ -89,7 +89,7 @@ const SearchBar = ({ fetchWeather }) => {
                 onClick={() => handleHistoryClick(item)}
                 className="px-4 py-2 bg-white/20 rounded-full border border-white/20 hover:bg-blue-600 hover:border-blue-400 transition text-sm sm:text-base"
               >
-                {item}
+                {item.toUpperCase()}
               </button>
             ))}
           </div>

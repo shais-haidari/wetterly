@@ -126,7 +126,7 @@ function App() {
       <LikeButton />
 
       {/* ⚡ Footer */}
-      <footer className="absolute bottom-4 text-xs text-gray-300 z-10 text-center">
+      <footer className="absolute bottom-4 text-xs text-gray-300 z-10 text-left w-full px-4 fixed">
         © {new Date().getFullYear()} Wetterly | Developed by Shais
         <br />
         <div>Powered by OpenWeather API</div>
